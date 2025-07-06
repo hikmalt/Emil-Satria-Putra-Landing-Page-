@@ -1,0 +1,1627 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Emil Satria Putra | Telkom Professional</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <link rel="icon" href="profil/1.jpg" type="image/png"> 
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Preloader */
+        .preloader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #fff;
+            z-index: 9999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: opacity 0.5s ease;
+        }
+
+        .preloader.hide {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .loader {
+            width: 50px;
+            height: 50px;
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #667eea;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 1rem 0;
+            transition: all 0.3s ease;
+        }
+
+        .navbar.scrolled {
+            background: rgba(255, 255, 255, 0.98);
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #667eea;
+            text-decoration: none;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-menu a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-menu a:hover {
+            color: #667eea;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            position: relative;
+            overflow: hidden;
+            /* No direct background image here, carousel will be behind */
+        }
+
+        /* Hero Carousel Background */
+        .hero-carousel-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 0; /* Behind the hero content */
+        }
+
+        .hero-carousel-slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            opacity: 0;
+            transition: opacity 1.5s ease-in-out; /* Smooth fade transition */
+        }
+
+        .hero-carousel-slide.active {
+            opacity: 1;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5); /* Darker overlay for readability */
+            z-index: 1;
+        }
+
+        .hero-content {
+            z-index: 2;
+            max-width: 800px;
+            padding: 2rem;
+        }
+
+        .profile-image {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            border: 5px solid white;
+            margin: 0 auto 2rem;
+            object-fit: cover;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .hero .subtitle {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0;
+            animation: fadeInUp 1s ease forwards 0.7s;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Sections */
+        .section {
+            padding: 80px 0;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: #333;
+        }
+
+        /* About Section */
+        .about {
+            background: white;
+            padding: 80px 2rem;
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr; /* Default to single column */
+            gap: 3rem; /* Adjusted gap */
+            align-items: flex-start; /* Align items to the start of the grid cell */
+        }
+
+        /* Styles for education/experience cards */
+        .about-card-container {
+            display: grid;
+            grid-template-columns: 1fr; /* Default for mobile */
+            gap: 2rem;
+            margin-top: 2rem; /* Spacing below the main text */
+        }
+
+        .about-card {
+            background: #f8f9fa; /* Light gray background */
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08); /* Soft shadow */
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .about-card:hover {
+            transform: translateY(-5px); /* Lift effect on hover */
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12); /* Enhanced shadow on hover */
+        }
+
+        .about-card h3 {
+            font-size: 1.8rem; /* Larger heading */
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 1rem;
+        }
+
+        .about-card p {
+            font-size: 1rem;
+            line-height: 1.6;
+            color: #555;
+        }
+
+        .about-card .title {
+            font-size: 1.15rem;
+            font-weight: 500;
+            color: #667eea; /* Highlighted title */
+            margin-bottom: 0.25rem;
+        }
+
+        .about-card .date {
+            font-size: 0.95rem;
+            color: #777;
+            margin-bottom: 0.5rem;
+        }
+
+        .about-card .location {
+            font-size: 0.95rem;
+            color: #888;
+        }
+
+        .about-text {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #666;
+            margin-bottom: 1.5rem; /* Space below intro text */
+        }
+
+        .about-stats {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 1.5rem;
+            background: #f8f9fa;
+            border-radius: 10px;
+            transition: transform 0.3s ease;
+        }
+
+        .stat-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #667eea;
+        }
+
+        /* Skills Section */
+        .skills {
+            background: #f8f9fa;
+            padding: 80px 2rem;
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .skill-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .skill-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .skill-icon {
+            font-size: 3rem;
+            color: #667eea;
+            margin-bottom: 1rem;
+        }
+
+        /* Gallery Section */
+        .gallery {
+            background: white;
+            padding: 80px 2rem;
+        }
+
+        .carousel-container {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+            overflow: hidden;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+        }
+
+        .carousel-slide {
+            width: 100%;
+            height: 400px;
+            display: none;
+            position: relative;
+        }
+
+        .carousel-slide.active {
+            display: block;
+        }
+
+        .carousel-slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .carousel-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.9);
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .carousel-nav:hover {
+            background: white;
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        .carousel-prev {
+            left: 20px;
+        }
+
+        .carousel-next {
+            right: 20px;
+        }
+
+        /* Promo Section */
+        .promo {
+            background: #f8f9fa; /* Changed to light gray for distinction */
+            padding: 80px 2rem;
+        }
+
+        .promo .container { /* Added container for consistent padding */
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .promo .grid {
+            display: grid;
+            grid-template-columns: 1fr; /* Default to single column */
+            gap: 2.5rem; /* gap-10 converted to rem */
+            align-items: center;
+        }
+
+        .ad-card {
+            background: white;
+            padding: 2rem; /* p-6 converted to rem */
+            border-radius: 0.5rem; /* rounded-lg converted to rem */
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1); /* shadow-xl */
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .ad-card:hover {
+            transform: translateY(-5px); /* Lift */
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25); /* More pronounced shadow */
+        }
+
+        .ad-card h3 {
+            font-size: 1.5rem; /* text-2xl converted to rem */
+            font-weight: 600; /* font-semibold */
+            color: #333; /* text-gray-800 */
+            margin-bottom: 1rem; /* mb-4 converted to rem */
+        }
+
+        .ad-card p {
+            font-size: 1.125rem; /* text-lg converted to rem */
+            color: #555; /* text-gray-600 */
+            margin-bottom: 1.5rem; /* mb-6 converted to rem */
+        }
+
+        .ad-card p .font-bold {
+            font-weight: 700;
+        }
+        .ad-card p .text-green-600 {
+            color: #34D399; /* Tailwind green-600 */
+        }
+        .ad-card p .text-blue-600 {
+            color: #2563EB; /* Tailwind blue-600 */
+        }
+
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            background: #667eea; /* Primary color for button */
+            color: white;
+            padding: 0.75rem 1.5rem; /* py-2 px-4, adjusted */
+            border-radius: 9999px; /* rounded-full or rounded-lg, using full for pill shape */
+            text-decoration: none;
+            font-weight: 600;
+            transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* subtle shadow */
+        }
+
+        .btn-primary:hover {
+            background: #5a67d8; /* Darker shade on hover */
+            transform: translateY(-2px); /* Slight lift */
+            box-shadow: 0 8px 10px rgba(0, 0, 0, 0.15); /* More pronounced shadow */
+        }
+
+        .btn-primary i {
+            margin-right: 0.5rem; /* mr-2 converted to rem */
+        }
+
+        .ad-media {
+            display: flex;
+            flex-direction: column;
+            gap: 2.5rem; /* gap-10 converted to rem */
+        }
+
+        .ad-media > div {
+            background: white;
+            border-radius: 0.5rem; /* rounded-lg */
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1); /* shadow-xl */
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .ad-media > div:hover {
+            transform: scale(1.03); /* Slightly less than 1.05 to avoid over-scaling with surrounding gaps */
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        }
+
+        .ad-media video,
+        .ad-media img {
+            width: 100%;
+            height: auto;
+            display: block; /* Removes extra space below images/videos */
+        }
+
+        .ad-media p {
+            padding: 1rem; /* p-4 converted to rem */
+            text-align: center;
+            color: #555; /* text-gray-600 */
+        }
+
+
+        /* Contact Section */
+        .contact {
+            background: white;
+            padding: 80px 2rem;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+            margin-top: 3rem;
+        }
+
+        .contact-card {
+            background: #f8f9fa;
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .contact-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .contact-icon {
+            font-size: 2.5rem;
+            color: #667eea;
+            margin-bottom: 1rem;
+        }
+
+        .contact-link {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 500;
+            cursor: pointer; /* Indicate it's clickable */
+        }
+
+        /* Floating Controls */
+        .floating-controls {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            z-index: 1000;
+        }
+
+        .floating-btn {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: #667eea;
+            color: white;
+            border: none;
+            font-size: 1.2rem;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .floating-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        /* General Modal Styles */
+        .modal-overlay {
+            display: none; /* Hidden by default */
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 10000; /* Above everything else */
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .modal-overlay.show {
+            display: flex;
+            opacity: 1;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 2rem;
+            border-radius: 20px;
+            text-align: center;
+            max-width: 90%;
+            width: 700px; /* Max width for content like iframes */
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            position: relative; /* For close button positioning */
+            transform: translateY(-20px);
+            opacity: 0;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+        }
+
+        .modal-overlay.show .modal-content {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .modal-content .close-button {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #667eea;
+            transition: color 0.3s ease;
+        }
+
+        .modal-content .close-button:hover {
+            color: #333;
+        }
+
+        .modal-content h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            color: #333;
+        }
+
+        .modal-content iframe {
+            width: 100%;
+            height: 400px; /* Fixed height for iframe content */
+            border: none;
+            border-radius: 10px;
+            margin-bottom: 1rem;
+        }
+
+        /* Music specific styles within the modal */
+        .music-controls {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .music-btn {
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 25px;
+            background: #667eea;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .music-btn:hover {
+            background: #5a67d8;
+        }
+
+        /* Scroll to Top */
+        .scroll-top {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            width: 50px;
+            height: 50px;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            opacity: 0;
+            transition: all 0.3s ease;
+            z-index: 1000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .scroll-top.show {
+            opacity: 1;
+        }
+
+        .scroll-top:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Twinkling Stars Animation CSS */
+        @keyframes twinkle {
+            0%, 100% { opacity: 0; transform: scale(0); }
+            50% { opacity: 1; transform: scale(1); }
+        }
+
+        /* Rainbow Animation for Easter Egg */
+        @keyframes rainbow {
+            0% { filter: hue-rotate(0deg); }
+            100% { filter: hue-rotate(360deg); }
+        }
+
+        /* Mouse Trail Dot CSS */
+        .mouse-trail-dot {
+            position: fixed;
+            background-color: rgba(255, 255, 255, 0.7); /* White with transparency */
+            border-radius: 50%;
+            pointer-events: none; /* Crucial so it doesn't interfere with clicks */
+            opacity: 0;
+            transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+            z-index: 9999;
+            transform: scale(0); /* Start scaled down */
+        }
+
+
+        /* Responsive Design */
+        @media (min-width: 769px) {
+            .about-content {
+                grid-template-columns: 1fr 2fr; /* Original layout for larger screens */
+            }
+            .about-card-container {
+                grid-template-columns: repeat(2, 1fr); /* Two columns for cards on larger screens */
+            }
+            .promo .grid {
+                grid-template-columns: repeat(2, 1fr); /* Two columns for promo on larger screens */
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none; /* Consider implementing a hamburger menu here */
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .profile-image {
+                width: 150px;
+                height: 150px;
+            }
+
+            .about-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .about-stats {
+                grid-template-columns: 1fr;
+            }
+
+            .skills-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .floating-controls {
+                bottom: 20px;
+                right: 20px;
+            }
+
+            .scroll-top {
+                bottom: 20px;
+                left: 20px;
+            }
+            .modal-content {
+                padding: 1rem;
+            }
+            .modal-content iframe {
+                height: 300px; /* Adjust iframe height for smaller screens */
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="preloader" id="preloader">
+        <div class="loader"></div>
+    </div>
+
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="#" class="logo">Emil Satria Putra</a>
+            <ul class="nav-menu">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#gallery">Gallery</a></li>
+                <li><a href="#promo">Offer</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section class="hero" id="home">
+        <div class="hero-carousel-bg" id="heroCarouselBg">
+            </div>
+
+        <div class="hero-content">
+            <img src="profil/1.jpg" alt="Emil Satria Putra" class="profile-image" 
+                 onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgdmlld0JveD0iMCAwIDIwMCAyMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3Qgd2lkdGg9IjIwMCIgaGVpZ2h0PSIyMDAiIHJ4PSIxMDAiIGZpbGw9IiNFMEUwRTAiLz48Y2lyY2xlIGN4PSIxMDAiIGN5PSI4MCIgcj0iNTAiIGZpbGw9IiM2NjdFRUEiLz48cGF0aCBkPSJNMTAgMTkwQzEwIDE2NSAxMCAxMzAgNTAgMTIwQzkwIDEzMCAxMTAgMTUwIDE1MCAxNjhDMTEwIDE4MyA3MCAxODcgMTAgMTkwWiIgZmlsbD0iIzQ2NURCRiIvPjxwYXRoIGQ9Ik0xNzAgMTkwQzE3MCAxNjUgMTcwIDEzMCAxMzAgMTIwQzkzIDEzMCAxMTcgMTUwIDE3MCAxNjhDMTA4IDE4MyA3MCAxODcgMTcwIDE5MFoiIGZpbGw9IiM0NjVEMUUiLz48dGV4dCB4PSI1MCUiIHk9IjUwJSIgZm9udC1mYW1pbHk9ImFyaWFsIiBmb250LXNpemU9IjQwIiBmaWxsPSIjRkZGIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBkeT0iLjM1ZW0iPkVTPC90ZXh0Pjwvc3ZnPg=='" 
+                 data-aos="zoom-in" data-aos-duration="1000">
+            <h1 data-aos="fade-up" data-aos-delay="200">Emil Satria Putra</h1>
+            <p class="subtitle" data-aos="fade-up" data-aos-delay="400">Handling Complain at Telkom | Customer Service Professional</p>
+            <p data-aos="fade-up" data-aos-delay="600">Kecamatan Medan Area, North Sumatra, Indonesia</p>
+        </div>
+    </section>
+
+    <section class="about" id="about">
+        <div class="section">
+            <h2 class="section-title" data-aos="fade-up">About Me</h2>
+            <div class="about-content">
+                <div data-aos="fade-right">
+                    <p class="about-text">
+                        With over 15 years of experience at Telkom Indonesia, I specialize in handling customer complaints and providing exceptional customer service. My journey began in February 2009, and since then, I've dedicated myself to resolving customer issues and ensuring satisfaction.
+                    </p>
+                    <p class="about-text">
+                        I graduated from Universitas Al-Azhar Medan (2003-2009) and have developed expertise in various areas including strategic planning, research, and team management.
+                    </p>
+                </div>
+                <div class="about-card-container">
+                    <div class="about-card" data-aos="fade-up" data-aos-delay="100">
+                        <h3>Education</h3>
+                        <p class="title">Universitas Al-Azhar Medan</p>
+                        <p class="date">2003 - 2009</p>
+                        <p class="location">Medan, North Sumatra, Indonesia</p>
+                    </div>
+                    <div class="about-card" data-aos="fade-up" data-aos-delay="200">
+                        <h3>Experience</h3>
+                        <p class="title">Handling Complain at Telkom</p>
+                        <p class="date">Feb 2009 - Present</p>
+                        <p class="location">Telkom</p>
+                    </div>
+                </div>
+            </div>
+            <div class="about-stats" data-aos="fade-left">
+                <div class="stat-item">
+                    <div class="stat-number">15+</div>
+                    <div>Years Experience</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">1000+</div>
+                    <div>Complaints Resolved</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">98%</div>
+                    <div>Customer Satisfaction</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">10+</div>
+                    <div>Skills Mastered</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="skills" id="skills">
+        <div class="section">
+            <h2 class="section-title" data-aos="fade-up">Skills & Expertise</h2>
+            <div class="skills-grid">
+                <div class="skill-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="skill-icon"><i class="fas fa-file-excel"></i></div>
+                    <h3>Microsoft Office Suite</h3>
+                    <p>Expert in Excel, Word, PowerPoint for data analysis and presentations</p>
+                </div>
+                <div class="skill-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="skill-icon"><i class="fas fa-headset"></i></div>
+                    <h3>Customer Service</h3>
+                    <p>Exceptional customer service and complaint handling expertise</p>
+                </div>
+                <div class="skill-card" data-aos="fade-up" data-aos-delay="300">
+                    <div class="skill-icon"><i class="fas fa-chart-line"></i></div>
+                    <h3>Strategic Planning</h3>
+                    <p>Strategic planning and budget management for business growth</p>
+                </div>
+                <div class="skill-card" data-aos="fade-up" data-aos-delay="400">
+                    <div class="skill-icon"><i class="fas fa-handshake"></i></div>
+                    <h3>Negotiation</h3>
+                    <p>Strong negotiation skills for conflict resolution</p>
+                </div>
+                <div class="skill-card" data-aos="fade-up" data-aos-delay="500">
+                    <div class="skill-icon"><i class="fas fa-search"></i></div>
+                    <h3>Research</h3>
+                    <p>Comprehensive research and analysis capabilities</p>
+                </div>
+                <div class="skill-card" data-aos="fade-up" data-aos-delay="600">
+                    <div class="skill-icon"><i class="fas fa-chalkboard-teacher"></i></div>
+                    <h3>Teaching</h3>
+                    <p>Training and mentoring team members effectively</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="gallery" id="gallery">
+        <div class="section">
+            <h2 class="section-title" data-aos="fade-up">Gallery</h2>
+            <div class="carousel-container" data-aos="zoom-in">
+                <div class="carousel-slide active">
+                    <img data-src="moments/1.jpg" alt="Moment 1" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAwIiBoZWlnaHQ9IjQwMCIgdmlld0JveD0iMCAwIDgwMCA0MDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3Qgd2lkdGg9IjgwMCIgaGVpZ2h0PSI0MDAiIGZpbGw9IiNFMEUwRTAiLz48dGV4dCB4PSI0MDAiIHk9IjIwMCIgZm9udC1mYW1pbHk9ImFyaWFsIiBmb250LXNpemU9IjMyIiBmaWxsPSIjNkI2QjZCIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBkeT0iLjM1ZW0iPlBJQ1RVUkUgMSBET0VTIE5PVCBFX0xJU1Q8L3RleHQ+PC9zdmc+'">
+                </div>
+                <div class="carousel-slide">
+                    <img data-src="moments/2.jpg" alt="Moment 2" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAwIiBoZWlnaHQ9IjQwMCIgdmlld0JveD0iMCAwIDgwMCA0MDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3Qgd2lkdGg9IjgwMCIgaGVpZ2h0PSI0MDAiIGZpbGw9IiNFMEUwRTAiLz48dGV4dCB4PSI0MDAiIHk9IjIwMCIgZm9udC1mYW1pbHk9ImFyaWFsIiBmb250LXNpemU9IjMyIiBmaWxsPSIjNkI2QjZCIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBkeT0iLjM1ZW0iPlBJQ1RVUkUgMiBET0VTIE5PVCBFX0xJU1Q8L3RleHQ+PC9zdmc+'">
+                </div>
+                <div class="carousel-slide">
+                    <img data-src="moments/3.jpg" alt="Moment 3" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAwIiBoZWlnaHQ9IjQwMCIgdmlld0JveD0iMCAwIDgwMCA0MDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3Qgd2lkdGg9IjgwMCIgaGVpZ2h0PSI0MDAiIGZpbGw9IiNFMEUwRTAiLz48dGV4dCB4PSI0MDAiIHk9IjIwMCIgZm9udC1mYW1pbHk9ImFyaWFsIiBmb250LXNpemU9IjMyIiBmaWxsPSIjNkI2QjZCIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBkeT0iLjM1ZW0iPlBJQ1RVUkUgMyBET0VTIE5PVCBFX0xJU1Q8L3RleHQ+PC9zdmc+'">
+                </div>
+                <div class="carousel-slide">
+                    <img data-src="moments/4.jpg" alt="Moment 4" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAwIiBoZWlnaHQ9IjQwMCIgdmlld0JveD0iMCAwIDgwMCA0MDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2Zz48cmVjdCB3aWR0aD0iODAwIiBoZWlnaHQ9IjQwMCIgZmlsbD0iI0UwRTBFMCIvPjx0ZXh0IHg9IjQwMCIgeT0iMjAwIiBmb250LWZhbWlseT0iYXJpYWwiIGZvbnQtc2l6ZT0iMzIiIGZpbGw9IiM2QjZCNkIiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGR5PSIuMzVlbSI+UElDVFVSRSA0IERPRVMgTk9UIEVfTElTVDwvdGV4dD48L3N2Zz4='">
+                </div>
+                <div class="carousel-slide">
+                    <img data-src="moments/5.jpg" alt="Moment 5" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAwIiBoZWlnaHQ9IjQwMCIgdmlld0JveD0iMCAwIDgwMCA0MDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3Qgd2lkdGg9IjgwMCIgaGVpZ2h0PSI0MDAiIGZpbGw9IiNFMEUwRTAiLz48dGV4dCB4PSI0MDAiIHk9IjIwMCIgZm9udC1mYW1pbHk9ImFyaWFsIiBmb250LXNpemU9IjMyIiBmaWxsPSIjNkI2QjZCIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBkeT0iLjM1ZW0iPlBJQ1RVUkUgNSBET0VTIE5PVCBFX0xJU1Q8L3RleHQ+PC9zdmc+'">
+                </div>
+                <div class="carousel-slide">
+                    <img data-src="moments/6.jpg" alt="Moment 6" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAwIiBoZWlnaHQ9IjQwMCIgdmlld0JveD0iMCAwIDgwMCA0MDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3Qgd2lkdGg9IjgwMCIgaGVpZ2h0PSI0MDAiIGZpbGw9IiNFMEUwRTAiLz48dGV4dCB4PSI0MDAiIHk9IjIwMCIgZm9udC1mYW1pbHk9ImFyaWFsIiBmb250LXNpemU9IjMyIiBmaWxsPSIjNkI2QjZCIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBkeT0iLjM1ZW0iPlBJQ1RVUkUgNiBET0VTIE5PVCBFX0xJU1Q8L3RleHQ+PC9zdmc+'">
+                </div>
+                <div class="carousel-slide">
+                    <img data-src="moments/7.jpg" alt="Moment 7" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAwIiBoZWlnaHQ9IjQwMCIgdmlld0JveD0iMCAwIDgwMCA0MDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3Qgd2lkdGg9IjgwMCIgaGVpZ2h0PSI0MDAiIGZpbGw9IiNFMEUwRTAiLz48dGV4dCB4PSI0MDAiIHk9IjIwMCIgZm9udC1mYW1pbHk9ImFyaWFsIiBmb250LXNpemU9IjMyIiBmaWxsPSIjNkI2QjZCIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBkeT0iLjM1ZW0iPlBJQ1RVUkUgNyBET0VTIE5PVCBFX0xJU1Q8L3RleHQ+PC9zdmc+'">
+                </div>
+                <div class="carousel-slide">
+                    <img data-src="moments/8.jpg" alt="Moment 8" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAwIiBoZWlnaHQ9IjQwMCIgdmlld0JveD0iMCAwIDgwMCA0MDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3Qgd2lkdGg9IjgwMCIgaGVpZ2h0PSI0MDAiIGZpbGw9IiNFMEUwRTAiLz48dGV4dCB4PSI0MDAiIHk9IjIwMCIgZm9udC1mYW1pbHk9ImFyaWFsIiBmb250LXNpemU9IjMyIiBmaWxsPSIjNkI2QjZCIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBkeT0iLjM1ZW0iPlBJQ1RVUkUgOCBET0VTIE5PVCBFX0xJU1Q8L3RleHQ+PC9zdmc+'">
+                </div>
+                <div class="carousel-slide">
+                    <img data-src="moments/9.jpg" alt="Moment 9" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAwIiBoZWlnaHQ9IjQwMCIgdmlld0JveD0iMCAwIDgwMCA0MDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3Qgd2lkdGg9IjgwMCIgaGVpZ2h0PSI0MDAiIGZpbGw9IiNFMEUwRTAiLz48dGV4dCB4PSI0MDAiIHk9IjIwMCIgZm9udC1mYW1pbHk9ImFyaWFsIiBmb250LXNpemU9IjMyIiBmaWxsPSIjNkI2QjZCIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBkeT0iLjM1ZW0iPlBJQ1RVUkUgOSBET0VTIE5PVCBFX0xJU1Q8L3RleHQ+PC9zdmc+'">
+                </div>
+                <div class="carousel-slide">
+                    <img data-src="moments/10.jpg" alt="Moment 10" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAwIiBoZWlnaHQ9IjQwMCIgdmlld0JveD0iMCAwIDgwMCA0MDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3Qgd2lkdGg9IjgwMCIgaGVpZ2h0PSI0MDAiIGZpbGw9IiNFMEUwRTAiLz48dGV4dCB4PSI0MDAiIHk9IjIwMCIgZm9udC1mYW1pbHk9ImFyaWFsIiBmb250LXNpemU9IjMyIiBmaWxsPSIjNkI2QjZCIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBkeT0iLjM1ZW0iPlBJQ1RVUkUgMTAgRE9FUyBOT1QgRV9MSVNUPC90ZXh0Pjwvc3ZnPg=='">
+                </div>
+                <div class="carousel-slide">
+                    <img data-src="moments/11.jpg" alt="Moment 11" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAwIiBoZWlnaHQ9IjQwMCIgdmlld0JveD0iMCAwIDgwMCA0MDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3Qgd2lkdGg9IjgwMCIgaGVpZ2h0PSI0MDAiIGZpbGw9IiNFMEUwRTAiLz48dGV4dCB4PSI0MDAiIHk9IjIwMCIgZm9udC1mYW1pbHk9ImFyaWFsIiBmb250LXNpemU9IjMyIiBmaWxsPSIjNkI2QjZCIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBkeT0iLjM1ZW0iPlBJQ1RVUkUgMTEgRE9FUyBOT1QgRV9MSVNUPC90ZXh0Pjwvc3ZnPg=='">
+                </div>
+                <div class="carousel-slide">
+                    <img data-src="moments/12.jpg" alt="Moment 12" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAwIiBoZWlnaHQ9IjQwMCIgdmlld0JveD0iMCAwIDgwMCA0MDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3Qgd2lkdGg9IjgwMCIgaGVpZ2h0PSI0MDAiIGZpbGw9IiNFMEUwRTAiLz48dGV4dCB4PSI0MDAiIHk9IjIwMCIgZm9udC1mYW1pbHk9ImFyaWFsIiBmb250LXNpemU9IjMyIiBmaWxsPSIjNkI2QjZCIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBkeT0iLjM1ZW0iPlBJQ1RVUkUgMTIgRE9FUyBOT1QgRV9MSVNUPC90ZXh0Pjwvc3ZnPg=='">
+                </div>
+                <div class="carousel-slide">
+                    <img data-src="moments/13.jpg" alt="Moment 13" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAwIiBoZWlnaHQ9IjQwMCIgdmlld0JveD0iMCAwIDgwMCA0MDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3Qgd2lkdGg9IjgwMCIgaGVpZ2h0PSI0MDAiIGZpbGw9IiNFMEUwRTAiLz48dGV4dCB4PSI0MDAiIHk9IjIwMCIgZm9udC1mYW1pbHk9ImFyaWFsIiBmb250LXNpemU9IjMyIiBmb250LWZpbGw9IiM2QjZCNkIiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGR5PSIuMzVlbSI+UElDVFVSRSAxMyBET0VTIE5PVCBFX0xJU1Q8L3RleHQ+PC9zdmc+'">
+                </div>
+                <div class="carousel-slide">
+                    <img data-src="moments/14.jpg" alt="Moment 14" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAwIiBoZWlnaHQ9IjQwMCIgdmlld0JveD0iMCAwIDgwMCA0MDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3Qgd2lkdGg9IjgwMCIgaGVpZ2h0PSI0MDAiIGZpbGw9IiNFMEUwRTAiLz48dGV4dCB4PSI0MDAiIHk9IjIwMCIgZm9udC1mYW1pbHk9ImFyaWFsIiBmb250LXNpemU9IjMyIiBmb250LWZpbGw9IiM2QjZCNkIiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGR5PSIuMzVlbSI+UElDVFVSRSAxNCBET0VTIE5PVCBFX0xJU1Q8L3RleHQ+PC9zdmc+'">
+                </div>
+                <div class="carousel-slide">
+                    <img data-src="moments/15.jpg" alt="Moment 15" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAwIiBoZWlnaHQ9IjQwMCIgdmlld0JveD0iMCAwIDgwMCA0MDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3Qgd2lkdGg9IjgwMCIgaGVpZ2h0PSI0MDAiIGZpbGw9IiNFMEUwRTAiLz48dGV4dCB4PSI0MDAiIHk9IjIwMCIgZm9udC1mYW1pbHk9ImFyaWFsIiBmb250LXNpemU9IjMyIiBmb250LWZpbGw9IiM2QjZCNkIiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGR5PSIuMzVlbSI+UElDVFVSRSAxNSBET0VTIE5PVCBFX0xJU1Q8L3RleHQ+PC9zdmc+'">
+                </div>
+                <div class="carousel-slide">
+                    <img data-src="moments/16.jpg" alt="Moment 16" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAwIiBoZWlnaHQ9IjQwMCIgdmlld0JveD0iMCAwIDgwMCA0MDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3Qgd2lkdGg9IjgwMCIgaGVpZ2h0PSI0MDAiIGZpbGw9IiNFMEUwRTAiLz48dGV4dCB4PSI0MDAiIHk9IjIwMCIgZm9udC1mYW1pbHk9ImFyaWFsIiBmb250LXNpemU9IjMyIiBmb250LWZpbGw9IiM2QjZCNkIiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGR5PSIuMzVlbSI+UElDVFVSRSAxNiBET0VTIE5PVCBFX0xJU1Q8L3RleHQ+PC9zdmc+'">
+                </div>
+                <div class="carousel-slide">
+                    <img data-src="moments/17.jpg" alt="Moment 17" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAwIiBoZWlnaHQ9IjQwMCIgdmlld0JveD0iMCAwIDgwMCA0MDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3Qgd2lkdGg9IjgwMCIgaGVpZ2h0PSI0MDAiIGZpbGw9IiNFMEUwRTAiLz48dGV4dCB4PSI0MDAiIHk9IjIwMCIgZm9udC1mYW1pbHk9ImFyaWFsIiBmb250LXNpemU9IjMyIiBmb250LWZpbGw9IiM2QjZCNkIiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGR5PSIuMzVlbSI+UElDVFVSRSAxNyBET0VTIE5PVCBFX0xJU1Q8L3RleHQ+PC9zdmc+'">
+                </div>
+                <div class="carousel-slide">
+                    <img data-src="moments/18.jpg" alt="Moment 18" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAwIiBoZWlnaHQ9IjQwMCIgdmlld0JveD0iMCAwIDgwMCA0MDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3Qgd2lkdGg9IjgwMCIgaGVpZ2h0PSI0MDAiIGZpbGw9IiNFMEUwRTAiLz48dGV4dCB4PSI0MDAiIHk9IjIwMCIgZm9udC1mYW1pbHk9ImFyaWFsIiBmb250LXNpemU9IjMyIiBmb250LWZpbGw9IiM2QjZCNkIiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGR5PSIuMzVlbSI+UElDVFVSRSAxOCBET0VTIE5PVCBFX0xJU1Q8L3RleHQ+PC9zdmc+'">
+                </div>
+                <div class="carousel-slide">
+                    <img data-src="moments/19.jpg" alt="Moment 19" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAwIiBoZWlnaHQ9IjQwMCIgdmlld0JveD0iMCAwIDgwMCA0MDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3Qgd2lkdGg9IjgwMCIgaGVpZ2h0PSI0MDAiIGZpbGw9IiNFMEUwRTAiLz48dGV4dCB4PSI0MDAiIHk9IjIwMCIgZm9udC1mYW1pbHk9ImFyaWFsIiBmb250LXNpemU9IjMyIiBmb250LWZpbGw9IiM2QjZCNkIiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGR5PSIuMzVlbSI+UElDVFVSRSAxOSBET0VTIE5PVCBFX0xJU1Q8L3RleHQ+PC9zdmc+'">
+                </div>
+                <div class="carousel-slide">
+                    <img data-src="moments/20.jpg" alt="Moment 20" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAwIiBoZWlnaHQ9IjQwMCIgdmlld0JveD0iMCAwIDgwMCA0MDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3Qgd2lkdGg9IjgwMCIgaGVpZ2h0PSI0MDAiIGZpbGw9IiNFMEUwRTAiLz48dGV4dCB4PSI0MDAiIHk9IjIwMCIgZm9udC1mYW1pbHk9ImFyaWFsIiBmb250LXNpemU9IjMyIiBmb250LWZpbGw9IiM2QjZCNkIiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGR5PSIuMzVlbSI+UElDVFVSRSAyMCBET0VTIE5PVCBFX0xJU1Q8L3RleHQ+PC9zdmc+'">
+                </div>
+                <div class="carousel-slide">
+                    <img data-src="moments/21.jpg" alt="Moment 21" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAwIiBoZWlnaHQ9IjQwMCIgdmlld0JveD0iMCAwIDgwMCA0MDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3Qgd2lkdGg9IjgwMCIgaGVpZ2h0PSI0MDAiIGZpbGw9IiNFMEUwRTAiLz48dGV4dCB4PSI0MDAiIHk9IjIwMCIgZm9udC1mYW1pbHk9ImFyaWFsIiBmb250LXNpemU9IjMyIiBmb250LWZpbGw9IiM2QjZCNkIiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGR5PSIuMzVlbSI+UElDVFVSRSAyMSBET0VTIE5PVCBFX0xJU1Q8L3RleHQ+PC9zdmc+'">
+                </div>
+                <div class="carousel-slide">
+                    <img data-src="moments/22.jpg" alt="Moment 22" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAwIiBoZWlnaHQ9IjQwMCIgdmlld0JveD0iMCAwIDgwMCA0MDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3Qgd2lkdGg9IjgwMCIgaGVpZ2h0PSI0MDAiIGZpbGw9IiNFMEUwRTAiLz48dGV4dCB4PSI0MDAiIHk9IjIwMCIgZm9udC1mYW1pbHk9ImFyaWFsIiBmb250LXNpemU9IjMyIiBmb250LWZpbGw9IiM2QjZCNkIiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGR5PSIuMzVlbSI+UElDVFVSRSAyMiBET0VTIE5PVCBFX0xJU1Q8L3RleHQ+PC9zdmc+'">
+                </div>
+                <div class="carousel-slide">
+                    <img data-src="moments/23.jpg" alt="Moment 23" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAwIiBoZWlnaHQ9IjQwMCIgdmlld0JveD0iMCAwIDgwMCA0MDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3Qgd2lkdGg9IjgwMCIgaGVpZ2h0PSI0MDAiIGZpbGw9IiNFMEUwRTAiLz48dGV4dCB4PSI0MDAiIHk9IjIwMCIgZm9udC1mYW1pbHk9ImFyaWFsIiBmb250LXNpemU9IjMyIiBmb250LWZpbGw9IiM2QjZCNkIiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGR5PSIuMzVlbSI+UElDVFVSRSAyMyBET0VTIE5PVCBFX0xJU1Q8L3RleHQ+PC9zdmc+'">
+                </div>
+                <div class="carousel-slide">
+                    <img data-src="moments/24.jpg" alt="Moment 24" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAwIiBoZWlnaHQ9IjQwMCIgdmlld0JveD0iMCAwIDgwMCA0MDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3Qgd2lkdGg9IjgwMCIgaGVpZ2h0PSI0MDAiIGZpbGw9IiNFMEUwRTAiLz48dGV4dCB4PSI0MDAiIHk9IjIwMCIgZm9udC1mYW1pbHk9ImFyaWFsIiBmb250LXNpemU9IjMyIiBmb250LWZpbGw9IiM2QjZCNkIiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGR5PSIuMzVlbSI+UElDVFVSRSAyNCBET0VTIE5PVCBFX0xJU1Q8L3RleHQ+PC9zdmc+'">
+                </div>
+                <div class="carousel-slide">
+                    <img data-src="moments/25.jpg" alt="Moment 25" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAwIiBoZWlnaHQ9IjQwMCIgdmlld0JveD0iMCAwIDgwMCA0MDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3Qgd2lkdGg9IjgwMCIgaGVpZ2h0PSI0MDAiIGZpbGw9IiNFMEUwRTAiLz48dGV4dCB4PSI0MDAiIHk9IjIwMCIgZm9udC1mYW1pbHk9ImFyaWFsIiBmb250LXNpemU9IjMyIiBmb250LWZpbGw9IiM2QjZCNkIiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGR5PSIuMzVlbSI+UElDVFVSRSAyNSBET0VTIE5PVCBFX0xJU1Q8L3RleHQ+PC9zdmc+'">
+                </div>
+                <div class="carousel-slide">
+                    <img data-src="moments/26.jpg" alt="Moment 26" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAwIiBoZWlnaHQ9IjQwMCIgdmlld0JveD0iMCAwIDgwMCA0MDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3Qgd2lkdGg9IjgwMCIgaGVpZ2h0PSI0MDAiIGZpbGw9IiNFMEUwRTAiLz48dGV4dCB4PSI0MDAiIHk9IjIwMCIgZm9udC1mYW1pbHk9ImFyaWFsIiBmb250LXNpemU9IjMyIiBmb250LWZpbGw9IiM2QjZCNkIiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGR5PSIuMzVlbSI+UElDVFVSRSAyNiBET0VTIE5PVCBFX0xJU1Q8L3RleHQ+PC9zdmc+'">
+                </div>
+                <div class="carousel-slide">
+                    <img data-src="moments/27.jpg" alt="Moment 27" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAwIiBoZWlnaHQ9IjQwMCIgdmlld0JveD0iMCAwIDgwMCA0MDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3Qgd2lkdGg9IjgwMCIgaGVpZ2h0PSI0MDAiIGZpbGw9IiNFMEUwRTAiLz48dGV4dCB4PSI0MDAiIHk9IjIwMCIgZm9udC1mYW1pbHk9ImFyaWFsIiBmb250LXNpemU9IjMyIiBmb250LWZpbGw9IiM2QjZCNkIiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGR5PSIuMzVlbSI+UElDVFVSRSAyNyBET0VTIE5PVCBFX0xJU1Q8L3RleHQ+PC9zdmc+'">
+                </div>
+                <div class="carousel-slide">
+                    <img data-src="moments/28.jpg" alt="Moment 28" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAwIiBoZWlnaHQ9IjQwMCIgdmlld0JveD0iMCAwIDgwMCA0MDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3Qgd2lkdGg9IjgwMCIgaGVpZ2h0PSI0MDAiIGZpbGw9IiNFMEUwRTAiLz48dGV4dCB4PSI0MDAiIHk9IjIwMCIgZm9udC1mYW1pbHk9ImFyaWFsIiBmb250LXNpemU9IjMyIiBmb250LWZpbGw9IiM2QjZCNkIiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGR5PSIuMzVlbSI+UElDVFVSRSAyOCBET0VTIE5PVCBFX0xJU1Q8L3RleHQ+PC9zdmc+'">
+                </div>
+                <div class="carousel-slide">
+                    <img data-src="moments/29.jpg" alt="Moment 29" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAwIiBoZWlnaHQ9IjQwMCIgdmlld0JveD0iMCAwIDgwMCA0MDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3Qgd2lkdGg9IjgwMCIgaGVpZ2h0PSI0MDAiIGZpbGw9IiNFMEUwRTAiLz48dGV4dCB4PSI0MDAiIHk9IjIwMCIgZm9udC1mYW1pbHk9ImFyaWFsIiBmb250LXNpemU9IjMyIiBmb250LWZpbGw9IiM2QjZCNkIiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGR5PSIuMzVlbSI+UElDVFVSRSAyOSBET0VTIE5PVCBFX0xJU1Q8L3RleHQ+PC9zdmc+'">
+                </div>
+                <div class="carousel-slide">
+                    <img data-src="moments/30.jpg" alt="Moment 30" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAwIiBoZWlnaHQ9IjQwMCIgdmlld0JveD0iMCAwIDgwMCA0MDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLmoyMDAwL3N2ZyI+PHJlY3Qgd2lkdGg9IjgwMCIgaGVpZ2h0PSI0MDAiIGZpbGw9IiNFMEUwRTAiLz48dGV4dCB4PSI0MDAiIHk9IjIwMCIgZm9udC1mYW1pbHk9ImFyaWFsIiBmb250LXNpemU9IjMyIiBmb250LWZpbGw9IiM2QjZCNkIiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGR5PSIuMzVlbSI+UElDVFVSRSAzMCBET0VTIE5PVCBFX0xJU1Q8L3RleHQ+PC9zdmc+'">
+                </div>
+                <div class="carousel-slide">
+                    <img data-src="moments/31.jpg" alt="Moment 31" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAwIiBoZWlnaHQ9IjQwMCIgdmlld0JveD0iMCAwIDgwMCA0MDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3Qgd2lkdGg9IjgwMCIgaGVpZ2h0PSI0MDAiIGZpbGw9IiNFMEUwRTAiLz48dGV4dCB4PSI0MDAiIHk9IjIwMCIgZm9udC1mYW1pbHk9ImFyaWFsIiBmb250LXNpemU9IjMyIiBmb250LWZpbGw9IiM2QjZCNkIiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGR5PSIuMzVlbSI+UElDVFVSRSAzMSBET0VTIE5PVCBFX0xJU1Q8L3RleHQ+PC9zdmc+'">
+                </div>
+                <button class="carousel-nav carousel-prev" onclick="changeSlide(-1)">❮</button>
+                <button class="carousel-nav carousel-next" onclick="changeSlide(1)">❯</button>
+            </div>
+        </div>
+    </section>
+
+    <section class="promo" id="promo" >
+        <div class="container">
+            <h2 class="section-title" data-aos="fade-up">Special Offer</h2>
+            <div class="grid" >
+                <div class="ad-card" data-aos="fade-right" data-aos-delay="100">
+                    <h3>Nikmati PROMO INDIHOME</h3>
+                    <p>Mulai dari <span class="font-bold text-green-600">280rb</span> dan Kecepatan hingga <span class="font-bold text-blue-600">100 Mbps!</span></p>
+                    <a href="https://s.id/IndiHomeRCESP5" target="_blank" class="btn-primary animate__animated animate__pulse animate__infinite">
+                        <i class="fas fa-arrow-alt-circle-right mr-2"></i> Registrasi Sekarang!
+                    </a>
+                </div>
+                <div class="ad-media">
+                    <div data-aos="fade-left" data-aos-delay="200">
+                        <video controls class="w-full h-auto rounded-lg" onerror="this.parentNode.innerHTML='<div style=\'background-color:#E0E0E0;height:200px;display:flex;align-items:center;justify-content:center;color:#6B6B6B;font-size:24px;\'>VIDEO NOT FOUND</div>'">
+                            <source data-src="ads\2.mp4" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                        <p>Explore our latest video advertisement!</p>
+                    </div>
+                    <div data-aos="fade-left" data-aos-delay="300">
+                        <img data-src="ads/1.png" alt="IndiHome Promotion" class="w-full h-auto object-cover rounded-lg" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAwIiBoZWlnaHQ9IjQwMCIgdmlld0JveD0iMCAwIDYwMCA0MDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3Qgd2lkdGg9IjYwMCIgaGVpZ2h0PSI0MDAiIGZpbGw9IiNFMEUwRTAiLz48dGV4dCB4PSIzMDAiIHk9IjIwMCIgZm9udC1mYW1pbHk9ImFyaWFsIiBmb250LXNpemU9IjMyIiBmaWxsPSIjNkI2QjZCIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBkeT0iLjM1ZW0iPklNUlBUIE5PVCBGT1VORDwvdGV4dD48L3N2Zz4K'">
+                        <p>Check out this exclusive offer!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="contact" id="contact">
+        <div class="section">
+            <h2 class="section-title" data-aos="fade-up">Get In Touch</h2>
+            <div class="contact-grid">
+                <div class="contact-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="contact-icon"><i class="fab fa-whatsapp"></i></div>
+                    <h3>WhatsApp</h3>
+                    <a href="#" class="contact-link" onclick="openModal('whatsapp')">+62 812-2216-1861</a>
+                </div>
+                <div class="contact-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="contact-icon"><i class="fab fa-linkedin"></i></div>
+                    <h3>LinkedIn</h3>
+                    <a href="#" class="contact-link" onclick="openModal('linkedin')">Connect with me</a>
+                </div>
+                <div class="contact-card" data-aos="fade-up" data-aos-delay="300">
+                    <div class="contact-icon"><i class="fab fa-instagram"></i></div>
+                    <h3>Instagram</h3>
+                    <a href="#" class="contact-link" onclick="openModal('instagram')">@emilsp5</a>
+                </div>
+                <div class="contact-card" data-aos="fade-up" data-aos-delay="400">
+                    <div class="contact-icon"><i class="fab fa-facebook"></i></div>
+                    <h3>Facebook</h3>
+                    <a href="#" class="contact-link" onclick="openModal('facebook')">Emil Satria Putra</a>
+                </div>
+                <div class="contact-card" data-aos="fade-up" data-aos-delay="500">
+                    <div class="contact-icon"><i class="fas fa-blog"></i></div>
+                    <h3>Blog</h3>
+                    <a href="#" class="contact-link" onclick="openModal('blog')">Visit my blog</a>
+                </div>
+                <div class="contact-card" data-aos="fade-up" data-aos-delay="600">
+                    <div class="contact-icon"><i class="fas fa-comment-alt"></i></div>
+                    <h3>Kritik & Saran</h3>
+                    <a href="https://docs.google.com/forms/d/e/1FAIpQLSdw-GZAh-ppx5IGJ_-zeYJKn0O5sAoLPy53veOGuCF5wJVnqw/viewform" class="contact-link" target="_blank">Send Feedback</a>
+                </div>
+                <div class="contact-card" data-aos="fade-up" data-aos-delay="700">
+                    <div class="contact-icon"><i class="fas fa-building"></i></div>
+                    <h3>Bimanda</h3>
+                    <a href="#" class="contact-link" onclick="openModal('bimanda')">Visit Bimanda</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer style="background: #333; color: white; text-align: center; padding: 2rem;">
+        <p>&copy; 2025 Emil Satria Putra. All rights reserved.</p>
+        <p>Professional Customer Service at Telkom Indonesia</p>
+    </footer>
+
+<div class="floating-controls">
+    <button class="floating-btn" onclick="openModal('bimanda')" title="Bimanda">
+        <img src="logo/1.png" alt="Bimanda Icon" style="width: 50px; height: 50px; filter: invert(0%);">
+    </button>
+    <button class="floating-btn" onclick="openMusicModal()" title="Music Control">
+        <i class="fas fa-music"></i>
+    </button>
+    <button class="floating-btn" onclick="openModal('instagram')" title="Instagram">
+        <i class="fab fa-instagram"></i>
+    </button>
+    <button class="floating-btn" onclick="openModal('blogspot')" title="Blogspot">
+        <i class="fab fa-blogger"></i>
+    </button>
+    <button class="floating-btn" onclick="openModal('linkedin')" title="LinkedIn">
+        <i class="fab fa-linkedin"></i>
+    </button>
+    <button class="floating-btn" onclick="openModal('facebook')" title="Facebook">
+        <i class="fab fa-facebook"></i>
+    </button>
+    <button class="floating-btn" onclick="openModal('whatsapp')" title="WhatsApp">
+        <i class="fab fa-whatsapp"></i>
+    </button>
+</div>
+
+    <button class="scroll-top" id="scrollTop" onclick="scrollToTop()">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <div class="modal-overlay" id="generalModal">
+        <div class="modal-content">
+            <button class="close-button" onclick="closeModal()">&times;</button>
+            <h3 id="modalTitle"></h3>
+            <div id="modalBody">
+                </div>
+        </div>
+    </div>
+
+    <audio id="backgroundMusic" loop>
+        <source src="https://clip.junodownload.com/MP3/SF7135384-02-01-01.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <script>
+        // Initialize AOS
+        AOS.init({
+            duration: 1000,
+            once: true
+        });
+
+        // Preloader
+        window.addEventListener('load', function() {
+            setTimeout(function() {
+                document.getElementById('preloader').classList.add('hide');
+            }, 1000);
+        });
+
+        // Navbar scroll effect
+        window.addEventListener('scroll', function() {
+            const navbar = document.getElementById('navbar');
+            const scrollTop = document.getElementById('scrollTop');
+
+            if (window.scrollY > 100) {
+                navbar.classList.add('scrolled');
+                scrollTop.classList.add('show');
+            } else {
+                navbar.classList.remove('scrolled');
+                scrollTop.classList.remove('show');
+            }
+        });
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Scroll to top function
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+
+        // Background Music Control (Modified for General Modal)
+        let music = document.getElementById('backgroundMusic');
+        let isPlaying = false;
+        let isMuted = false;
+
+        // Auto-play music starting from 0:20
+        window.addEventListener('load', function() {
+            setTimeout(function() {
+                if (music) { // Check if music element exists
+                    music.currentTime = 0; // Start from 20 seconds
+                     music.volume = 1.0; // Set volume ke 100% (nilai 1.0 adalah 100%)
+                    music.play().then(() => {
+                        isPlaying = true;
+                    }).catch(e => {
+                        console.log('Auto-play prevented by browser', e);
+                    });
+                }
+            }, 2000);
+        });
+
+        function openMusicModal() {
+            const modalTitle = document.getElementById('modalTitle');
+            const modalBody = document.getElementById('modalBody');
+
+            if (!modalTitle || !modalBody) { // Basic check if modal elements exist
+                console.error('Modal elements not found.');
+                return;
+            }
+
+            modalTitle.textContent = 'Music Player';
+            modalBody.innerHTML = `
+                <p>Background Music Control</p>
+                <div class="music-controls">
+                    <button class="music-btn" onclick="toggleMusic()">
+                        <i class="fas ${isPlaying ? 'fa-pause' : 'fa-play'}" id="playIcon"></i> <span id="playText">${isPlaying ? 'Pause' : 'Play'}</span>
+                    </button>
+                    <button class="music-btn" onclick="toggleMute()">
+                        <i class="fas ${isMuted ? 'fa-volume-mute' : 'fa-volume-up'}" id="muteIcon"></i> <span id="muteText">${isMuted ? 'Unmute' : 'Mute'}</span>
+                    </button>
+                </div>
+                <div style="margin-top: 1rem;">
+                    <input type="range" id="volumeSlider" min="0" max="100" value="${music ? music.volume * 100 : 50}" style="width: 100%;" oninput="changeVolume(this.value)">
+                    <p>Volume: <span id="volumeValue">${music ? Math.round(music.volume * 100) : 50}</span>%</p>
+                </div>
+            `;
+            document.getElementById('generalModal').classList.add('show');
+        }
+
+        function toggleMusic() {
+            if (!music) return;
+            if (isPlaying) {
+                music.pause();
+                isPlaying = false;
+            } else {
+                music.play();
+                isPlaying = true;
+            }
+            updateMusicModalControls();
+        }
+
+        function toggleMute() {
+            if (!music) return;
+            if (isMuted) {
+                music.muted = false;
+                isMuted = false;
+            } else {
+                music.muted = true;
+                isMuted = true;
+            }
+            updateMusicModalControls();
+        }
+
+        function changeVolume(value) {
+            if (music) {
+                music.volume = value / 100;
+                document.getElementById('volumeValue').textContent = value;
+            }
+        }
+
+        function updateMusicModalControls() {
+            const playIcon = document.getElementById('playIcon');
+            const playText = document.getElementById('playText');
+            const muteIcon = document.getElementById('muteIcon');
+            const muteText = document.getElementById('muteText');
+
+            if (playIcon && playText) {
+                if (isPlaying) {
+                    playIcon.className = 'fas fa-pause';
+                    playText.textContent = 'Pause';
+                } else {
+                    playIcon.className = 'fas fa-play';
+                    playText.textContent = 'Play';
+                }
+            }
+            if (muteIcon && muteText) {
+                if (isMuted) {
+                    muteIcon.className = 'fas fa-volume-mute';
+                    muteText.textContent = 'Unmute';
+                } else {
+                    muteIcon.className = 'fas fa-volume-up';
+                    muteText.textContent = 'Mute';
+                }
+            }
+        }
+
+        // --- General Modal System ---
+        const generalModal = document.getElementById('generalModal');
+        const modalTitle = document.getElementById('modalTitle');
+        const modalBody = document.getElementById('modalBody');
+
+        function openModal(type) {
+            let title = '';
+            let contentHtml = '';
+
+            switch (type) {
+                case 'whatsapp':
+                    title = 'WhatsApp Contact';
+                    contentHtml = `<p>Click the link below to chat with Emil via WhatsApp:</p><br><a href="https://wa.me/6281222161861" target="_blank" class="btn-primary"><i class="fab fa-whatsapp mr-2"></i> Chat on WhatsApp</a>`;
+                    break;
+                case 'linkedin':
+                    title = 'LinkedIn Profile';
+                    contentHtml = `<iframe src="https://www.linkedin.com/in/emil-putra-95a6b872" title="LinkedIn Profile" allowfullscreen></iframe><p>You can also visit my profile directly: <a href="https://www.linkedin.com/in/emil-putra-95a6b872" target="_blank" class="contact-link">linkedin.com/in/emil-putra-95a6b872</a></p>`;
+                    break;
+                case 'instagram':
+                    title = 'Instagram Profile';
+                    contentHtml = `<iframe src="https://www.instagram.com/emilsp5/embed/" title="Instagram Profile" allowfullscreen></iframe><p>Follow me on Instagram: <a href="https://www.instagram.com/emilsp5" target="_blank" class="contact-link">@emilsp5</a></p>`;
+                    break;
+                case 'facebook':
+                    title = 'Facebook Profile';
+                    contentHtml = `<iframe src="https://www.facebook.com/share/1B5AydwEFh/" title="Facebook Profile" allowfullscreen></iframe><p>Visit my Facebook page: <a href="https://www.facebook.com/share/1B5AydwEFh/" target="_blank" class="contact-link">Emil Satria Putra (Facebook)</a></p>`;
+                    break;
+                case 'blogspot':
+                    title = 'Emil\'s Blog';
+                    contentHtml = `<iframe src="https://emil-satria-putra.blogspot.com/" title="Emil's Blog" allowfullscreen></iframe><p>Read my latest posts: <a href="https://emil-satria-putra.blogspot.com/" target="_blank" class="contact-link">emil-satria-putra.blogspot.com</a></p>`;
+                    break;
+                case 'bimanda':
+                    title = 'Bimanda Website';
+                    contentHtml = `<iframe src="https://hikmalt.github.io/Bimanda-MAN-2-Model-Medan-Landing-Page-/" title="Bimanda Website" allowfullscreen></iframe><p>Explore the Bimanda project: <a href="https://hikmalt.github.io/Bimanda-MAN-2-Model-Medan-Landing-Page-/" target="_blank" class="contact-link">Bimanda</a></p>`;
+                    break;
+                default:
+                    title = 'Information';
+                    contentHtml = '<p>No specific content available.</p>';
+                    break;
+            }
+
+            modalTitle.textContent = title;
+            modalBody.innerHTML = contentHtml;
+            generalModal.classList.add('show');
+        }
+
+        function closeModal() {
+            generalModal.classList.remove('show');
+            // Clear iframe content to stop any media playback
+            modalBody.innerHTML = '';
+        }
+
+        // Close modal when clicking outside
+        if (generalModal) {
+            generalModal.addEventListener('click', function(e) {
+                if (e.target === generalModal) {
+                    closeModal();
+                }
+            });
+        }
+
+
+        // Keyboard navigation (Esc key to close modal)
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && generalModal && generalModal.classList.contains('show')) {
+                closeModal();
+            }
+        });
+
+        // --- Hero Section Background Carousel ---
+        const heroCarouselBg = document.getElementById('heroCarouselBg');
+        const momentsFolder = 'moments/'; // Path to your moments folder
+        const momentsImages = [
+            'moment1.jpg', 'moment2.jpg', 'moment3.jpg', 'moment4.jpg', 'moment5.jpg' // List your image filenames
+        ];
+        let currentBgSlide = 0;
+        let bgSlides = []; // Array to hold the created slide elements
+        let bgCarouselInterval; // To store the interval ID for clearing
+
+        function createBgSlides() {
+            if (!heroCarouselBg) {
+                console.error("heroCarouselBg element not found.");
+                return;
+            }
+
+            // Only create slides if there are images defined
+            if (momentsImages.length > 0) {
+                momentsImages.forEach(imageName => {
+                    const div = document.createElement('div');
+                    div.className = 'hero-carousel-slide';
+                    div.style.backgroundImage = `url(${momentsFolder}${imageName})`;
+                    heroCarouselBg.appendChild(div);
+                    bgSlides.push(div);
+                });
+
+                showBgSlide(0); // Activate the first slide immediately
+                // Clear any existing interval before setting a new one
+                if (bgCarouselInterval) clearInterval(bgCarouselInterval);
+                bgCarouselInterval = setInterval(nextBgSlide, 5000); // Change slide every 5 seconds
+            } else {
+                console.warn("No background images defined for hero carousel. Using solid background.");
+                // Ensure hero-carousel-bg doesn't hide the main hero background if no images
+                heroCarouselBg.style.display = 'none'; // Hide the div if it's empty
+            }
+        }
+
+        function showBgSlide(n) {
+            if (bgSlides.length === 0) return;
+
+            // Deactivate current slide if it exists
+            if (bgSlides[currentBgSlide]) {
+                bgSlides[currentBgSlide].classList.remove('active');
+            }
+
+            currentBgSlide = (n + bgSlides.length) % bgSlides.length;
+            bgSlides[currentBgSlide].classList.add('active');
+        }
+
+        function nextBgSlide() {
+            showBgSlide(currentBgSlide + 1);
+        }
+
+        // Call this on load to set up the background carousel
+        window.addEventListener('load', createBgSlides);
+
+
+        // Carousel functionality for Gallery Section (Kept separate as it's a content carousel)
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('#gallery .carousel-slide'); // Target specific gallery carousel
+        const totalSlides = slides.length;
+        let galleryCarouselInterval; // To store the interval ID for clearing
+
+        function showSlide(n) {
+            if (totalSlides === 0) {
+                console.warn("No gallery slides found, carousel not initialized.");
+                return;
+            }
+            if (slides[currentSlide]) {
+                slides[currentSlide].classList.remove('active');
+            }
+            currentSlide = (n + totalSlides) % totalSlides;
+            slides[currentSlide].classList.add('active');
+
+            // Lazy load the image when it becomes active
+            const activeImg = slides[currentSlide].querySelector('img[data-src]');
+            if (activeImg && activeImg.dataset.src) { // Check if data-src exists
+                activeImg.src = activeImg.dataset.src;
+                activeImg.removeAttribute('data-src'); // Remove data-src after loading
+            }
+        }
+
+        function changeSlide(n) {
+            showSlide(currentSlide + n);
+        }
+
+        // Initialize gallery carousel to first slide on page load
+        window.addEventListener('load', function() {
+            if (totalSlides > 0) {
+                 showSlide(0);
+                // Clear any existing interval before setting a new one
+                if (galleryCarouselInterval) clearInterval(galleryCarouselInterval);
+                galleryCarouselInterval = setInterval(function() {
+                    changeSlide(1);
+                }, 3000);
+            } else {
+                console.warn("No gallery slides found. Gallery carousel will not auto-advance.");
+                // Potentially hide carousel navigation if no slides
+                const carouselNavs = document.querySelectorAll('.carousel-nav');
+                carouselNavs.forEach(nav => nav.style.display = 'none');
+            }
+        });
+
+
+        // Add typing effect to hero title
+        const heroTitle = document.querySelector('.hero h1');
+        if (heroTitle) {
+            const titleText = heroTitle.textContent;
+            heroTitle.textContent = ''; // Clear text before typing effect
+
+            if (titleText.length > 0) {
+                setTimeout(function() {
+                    let i = 0;
+                    const typeInterval = setInterval(function() {
+                        if (i < titleText.length) {
+                            heroTitle.textContent += titleText.charAt(i);
+                            i++;
+                        } else {
+                            clearInterval(typeInterval);
+                            // Ensure final state matches CSS if AOS is done
+                            heroTitle.style.opacity = '1';
+                            heroTitle.style.transform = 'translateY(0)';
+                        }
+                    }, 100);
+                }, 1500); // Start typing after 1.5 seconds delay
+            }
+        }
+
+
+        // Add random twinkling stars to hero section
+        function createStar() {
+            const heroSection = document.querySelector('.hero');
+            if (!heroSection) return;
+
+            const star = document.createElement('div');
+            star.style.position = 'absolute';
+            star.style.width = '2px';
+            star.style.height = '2px';
+            star.style.backgroundColor = 'white';
+            star.style.borderRadius = '50%';
+            star.style.left = Math.random() * 100 + '%';
+            star.style.top = Math.random() * 100 + '%';
+            star.style.animation = 'twinkle 2s infinite';
+            star.style.zIndex = '1';
+
+            heroSection.appendChild(star);
+
+            // Remove star after its animation to prevent too many elements
+            setTimeout(function() {
+                if (star.parentNode) star.remove();
+            }, 2000);
+        }
+
+        setInterval(createStar, 500);
+
+        // Add mouse trail effect
+        const trailDots = [];
+        const trailLength = 15;
+
+        // Note: The CSS for .mouse-trail-dot is already in the <style> block.
+        // No need to inject style dynamically if it's always needed.
+
+        document.addEventListener('mousemove', function(e) {
+            const dot = document.createElement('div');
+            dot.className = 'mouse-trail-dot';
+            document.body.appendChild(dot);
+
+            dot.style.left = `${e.clientX}px`;
+            dot.style.top = `${e.clientY}px`;
+            dot.style.width = `${Math.random() * 5 + 5}px`;
+            dot.style.height = dot.style.width;
+            dot.style.opacity = '1';
+            dot.style.transform = 'scale(1)';
+
+            trailDots.push(dot);
+
+            if (trailDots.length > trailLength) {
+                const oldDot = trailDots.shift();
+                oldDot.style.opacity = '0';
+                oldDot.style.transform = 'scale(0.5)';
+                oldDot.addEventListener('transitionend', () => oldDot.remove(), {once: true});
+            }
+        });
+
+        // Analytics tracking (placeholder)
+        function trackEvent(eventName, data) {
+            console.log(`Event: ${eventName}`, data);
+        }
+
+        document.querySelectorAll('button, a').forEach(element => {
+            element.addEventListener('click', function() {
+                trackEvent('click', {
+                    element: this.tagName,
+                    text: this.textContent,
+                    url: this.href || 'N/A'
+                });
+            });
+        });
+
+        // Add easter egg - konami code
+        let konamiCode = [];
+        const konamiSequence = [38, 38, 40, 40, 37, 39, 37, 39, 66, 65]; // Up, Up, Down, Down, Left, Right, Left, Right, B, A
+
+        document.addEventListener('keydown', function(e) {
+            konamiCode.push(e.keyCode);
+            // Keep the array length limited to the sequence length
+            if (konamiCode.length > konamiSequence.length) {
+                konamiCode.shift();
+            }
+
+            // Check if the current sequence matches the Konami code
+            if (konamiCode.join(',') === konamiSequence.join(',')) {
+                document.body.style.animation = 'rainbow 1s infinite';
+                setTimeout(function() {
+                    document.body.style.animation = ''; // Remove animation after 5 seconds
+                }, 5000);
+                konamiCode = []; // Reset sequence
+                trackEvent('easter_egg', { name: 'konami_code_rainbow' });
+            }
+        });
+
+        // Performance optimization - lazy loading for images and videos (refined)
+        const lazyLoadElements = document.querySelectorAll('[data-src]');
+
+        const lazyLoadObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const element = entry.target;
+                    const src = element.dataset.src;
+
+                    if (src) { // Ensure data-src exists
+                        if (element.tagName === 'IMG') {
+                            element.src = src;
+                            // Add an onerror for lazy loaded images as well
+                            element.onerror = () => {
+                                element.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAwIiBoZWlnaHQ9IjQwMCIgdmlld0JveD0iMCAwIDgwMCA0MDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3Qgd2lkdGg9IjgwMCIgaGVpZ2h0PSI0MDAiIGZpbGw9IiNFMEUwRTAiLz48dGV4dCB4PSI0MDAiIHk9IjIwMCIgZm9udC1mYW1pbHk9ImFyaWFsIiBmb250LXNpemU9IjMyIiBmaWxsPSIjNkI2QjZCIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBkeT0iLjM1ZW0iPlBJQ1RVUkUgTk9UIEZPVU5EIDwvdGV4dD48L3N2Zz4=';
+                            };
+                        } else if (element.tagName === 'SOURCE' && element.parentNode.tagName === 'VIDEO') {
+                            element.src = src;
+                            element.parentNode.load(); // Tell the video element to load its new source
+                            // Add an onerror for the parent video if needed
+                            element.parentNode.onerror = () => {
+                                const videoContainer = element.parentNode.parentNode; // Get the div wrapping the video
+                                if(videoContainer) {
+                                    videoContainer.innerHTML = '<div style="background-color:#E0E0E0;height:200px;display:flex;align-items:center;justify-content:center;color:#6B6B6B;font-size:24px;">VIDEO NOT FOUND</div>';
+                                }
+                            };
+                        }
+                        element.removeAttribute('data-src'); // Remove data-src after loading
+                    }
+                    observer.unobserve(element);
+                }
+            });
+        }, {
+            rootMargin: '0px 0px 100px 0px', // Load elements when they are 100px within the viewport
+            threshold: 0.01 // Start loading when even 1% is visible
+        });
+
+        lazyLoadElements.forEach(element => lazyLoadObserver.observe(element));
+
+    </script>
+</body>
+</html>
